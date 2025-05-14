@@ -5,6 +5,16 @@
       <el-button @click="batchMethod" type="info" size="small" :disabled="dataTable.length <= 0" style="margin-bottom: 15px" v-if="userInfo.level !== 2">批量编辑</el-button>
       <el-button @click="addEntry" type="primary" size="small" :disabled="dataTable.length <= 0" style="margin-bottom: 15px" v-if="userInfo.level !== 2">成绩录入</el-button>
       <el-button @click="exportMethod" type="success" :disabled="dataTable.length <= 0" size="small" style="margin-bottom: 15px">导出</el-button>
+      <el-input
+        style="float:right;width:300px;margin-bottom: 15px"
+        size="small"
+        v-model="searchKeyword"
+        placeholder="请输入课程名称搜索"
+        clearable
+        @clear="searchByCourse"
+        @keyup.enter.native="searchByCourse">
+        <el-button slot="append" @click="searchByCourse" type="primary">搜索</el-button>
+      </el-input>
       <!--过滤框-->
       <el-collapse-transition>
         <div v-if="show" style="background-color: white;height: 100px;;box-sizing: border-box">
@@ -34,7 +44,7 @@
                 </el-form-item>
               </el-col>
               <el-col :span="8">
-                <el-form-item label="班级：" prop="grade">
+                <el-form-item label="年级：" prop="grade">
                   <el-select v-model="form.grade" style="width: 90%">
                     <el-option v-for="item in gradeArr" :key="item" :label="item" :value="item"></el-option>
                   </el-select>
@@ -89,6 +99,7 @@
         showInput: '',
         userInfo: '',
         show: false,
+        searchKeyword: '',
         form: {
           profession: '',
           grade: '',
@@ -195,7 +206,7 @@
             style: 'center',
             minWidth: '120',
           }, {
-            label: '班级',
+            label: '年级',
             prop: 'grade',
             style: 'center',
             minWidth: '80',
@@ -244,6 +255,33 @@
         let month = new Date().getMonth()+1;
         this.form.term = this.termArr[0].value;
         this.click(this.searchValue);
+      },
+      searchByCourse() {
+        // 重置分页到第一页
+        this.searchValue.$offset = 0;
+        if (this.$refs['score_table'] !== undefined) {
+          this.$refs['score_table'].currentPageToOne();
+        }
+
+        // 构建查询参数
+        let userInfo = JSON.parse(localStorage.userInfo);
+        let obj = {
+          $limit: this.searchValue.$limit,
+          $offset: this.searchValue.$offset,
+          courseName: this.searchKeyword,
+          studentName: userInfo.level === 2 ? userInfo.username : '',
+          level: userInfo.level,
+          year: this.form.year,
+          term: this.form.term
+        };
+
+        // 如果是教师用户，需要添加教师ID
+        if (userInfo.level === 1) {
+          obj.username = userInfo.id;
+        }
+
+        // 调用查询方法
+        this.clickMethod(obj);
       },
       cancel () {
         this.form = {
@@ -296,7 +334,7 @@
           profession: this.form.profession,
           grade: this.form.grade,
           username: userInfo.level === 1 ? userInfo.id : '',  // 使用id而不是username
-          courseName: this.form.courseName,
+          courseName: this.searchKeyword || this.form.courseName, // 优先使用搜索关键字
           studentName: userInfo.level === 2 ? userInfo.username : '',
           level: userInfo.level,
           year: this.form.year,
@@ -357,7 +395,7 @@
           profession: this.form.profession,
           grade: this.form.grade,
           username: userInfo.level === 1 ? userInfo.id : (userInfo.level === 0 ? userInfo.username : ''),  // 教师用户使用id
-          courseName: this.form.courseName,
+          courseName: this.searchKeyword || this.form.courseName, // 优先使用搜索关键字
           studentName: userInfo.level === 2 ? userInfo.username : '',
           level: userInfo.level
         };
@@ -401,7 +439,7 @@
           this.classArr = response.data;
         }).catch(error => {
           this.$message.error({
-            message: '获取班级列表'
+            message: '获取年级列表'
           }, error)
         })
       },
@@ -412,7 +450,7 @@
           this.classArr = response.data;
         }).catch(error => {
           this.$message.error({
-            message: '获取班级列表'
+            message: '获取年级列表'
           }, error)
         })
       },

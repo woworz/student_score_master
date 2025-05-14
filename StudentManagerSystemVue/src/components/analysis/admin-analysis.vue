@@ -11,7 +11,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="班级：" prop="grade">
+            <el-form-item label="年级：" prop="grade">
               <el-select v-model="form.grade" style="width: 90%">
                 <el-option v-for="item in gradeArr" :key="item" :label="item" :value="item"></el-option>
               </el-select>

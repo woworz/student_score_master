@@ -98,7 +98,7 @@
         }],
         rules: {
           grade: [
-            { required: true, message: '班级不能为空', trigger: 'blur' },
+            { required: true, message: '年级不能为空', trigger: 'blur' },
           ],
           realName: [
             {required: true, message: '姓名不能为空', trigger: 'blur'},

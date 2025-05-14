@@ -75,7 +75,7 @@
             style: 'center',
             minWidth: '100',
           } , {
-            label: '班级',
+            label: '年级',
             prop: 'grade',
             style: 'center',
             minWidth: '60',

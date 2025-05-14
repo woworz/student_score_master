@@ -45,7 +45,7 @@
     </el-card>
     <!--饼状图-->
     <el-card class="content" style="width: 36.8%;margin: 12px 12px 12px 0">
-      <el-button type="text" icon="el-icon-s-tools" @click="setting" class="settingStyle" title="选择班级"></el-button>
+      <el-button type="text" icon="el-icon-s-tools" @click="setting" class="settingStyle" title="选择年级"></el-button>
       <div style="margin-top: -15px" v-if="showPie">
         <ve-pie :data="pieData" :settings="pieSetting"></ve-pie>
       </div>

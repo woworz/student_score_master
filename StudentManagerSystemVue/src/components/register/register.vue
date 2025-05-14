@@ -88,10 +88,10 @@
               <el-radio :label="1">女</el-radio>
             </el-radio-group>
           </el-form-item>
-          <el-form-item label="班级" prop="grade" v-if="form.level === 2">
+          <el-form-item label="年级" prop="grade" v-if="form.level === 2">
             <el-input
               v-model="form.grade"
-              placeholder="请输入班级"
+              placeholder="请输入年级"
             ></el-input>
           </el-form-item>
           <el-form-item>
@@ -217,7 +217,7 @@ export default {
           this.loading = true;
           // 设置ID等于用户名
           this.form.id = this.form.username;
-          
+
           this.axiosHelper
             .post("/api/sms/user/register", this.form)
             .then((response) => {

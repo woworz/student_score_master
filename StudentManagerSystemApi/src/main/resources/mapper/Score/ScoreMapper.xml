@@ -51,7 +51,7 @@
                 AND a.teacher_id = #{condition.username}
             </if>
             <if test="condition.courseName != null and condition.courseName != ''">
-                AND a.name = #{condition.courseName}
+                AND a.name LIKE CONCAT('%', #{condition.courseName}, '%')
             </if>
             <if test="condition.studentName != null and condition.studentName != ''">
                 AND d.student_id = #{condition.studentName}
@@ -84,7 +84,7 @@
                 AND a.grade = #{condition.grade}
             </if>
             <if test="condition.courseName != null and condition.courseName != ''">
-                AND b.name = #{condition.courseName}
+                AND b.name LIKE CONCAT('%', #{condition.courseName}, '%')
             </if>
         </where>
         order by a.id
@@ -115,7 +115,7 @@
                 AND a.grade = #{condition.grade}
             </if>
             <if test="condition.courseName != null and condition.courseName != ''">
-                AND b.name = #{condition.courseName}
+                AND b.name LIKE CONCAT('%', #{condition.courseName}, '%')
             </if>
         </where>
         order by a.id
@@ -150,6 +150,9 @@
             <if test="condition.term != null and condition.term != ''">
                 AND a.term = #{condition.term}
             </if>
+            <if test="condition.courseName != null and condition.courseName != ''">
+                AND c.name LIKE CONCAT('%', #{condition.courseName}, '%')
+            </if>
         </where>
         order by a.id
     </select>
@@ -183,6 +186,9 @@
             <if test="condition.term != null and condition.term != ''">
                 AND a.term = #{condition.term}
             </if>
+            <if test="condition.courseName != null and condition.courseName != ''">
+                AND c.name LIKE CONCAT('%', #{condition.courseName}, '%')
+            </if>
         </where>
         order by a.id
     </select>
@@ -198,7 +204,7 @@
                 student_id = #{condition.id}
             </if>
             <if test="condition.courseName != null and condition.courseName != ''">
-                AND name = #{condition.courseName}
+                AND name LIKE CONCAT('%', #{condition.courseName}, '%')
             </if>
         </where>
     </select>
@@ -291,7 +297,7 @@
                 AND a.teacher_id = #{condition.username}
             </if>
             <if test="condition.courseName != null and condition.courseName != ''">
-                AND a.name = #{condition.courseName}
+                AND a.name LIKE CONCAT('%', #{condition.courseName}, '%')
             </if>
             <if test="condition.studentName != null and condition.studentName != ''">
                 AND d.student_id = #{condition.studentName}

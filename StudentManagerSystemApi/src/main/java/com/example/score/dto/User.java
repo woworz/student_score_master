@@ -74,10 +74,7 @@ public class User {
    * refreshToken
    */
   private String refreshToken;
-  /**
-   * 默哀模式
-   */
-  private Integer state;
+
 
   public User() {
   }
@@ -99,7 +96,6 @@ public class User {
     this.createTime = createTime;
     this.token = token;
     this.refreshToken = refreshToken;
-    this.state = state;
   }
 
   public String getId() {
@@ -230,14 +226,6 @@ public class User {
     this.refreshToken = refreshToken;
   }
 
-  public Integer getState() {
-    return state;
-  }
-
-  public void setState(Integer state) {
-    this.state = state;
-  }
-
   @Override
   public String toString() {
     return "User{" +
@@ -257,7 +245,6 @@ public class User {
             ", createTime=" + createTime +
             ", token='" + token + '\'' +
             ", refreshToken='" + refreshToken + '\'' +
-            ", state=" + state +
             '}';
   }
 }

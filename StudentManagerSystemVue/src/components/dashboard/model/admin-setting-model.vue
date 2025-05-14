@@ -6,7 +6,7 @@
           <el-option v-for="item in classArr" :key="item.profession" :label="item.profession" :value="item"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="班级：" prop="grade">
+      <el-form-item label="年级：" prop="grade">
         <el-select v-model="form.grade" style="width: 90%">
           <el-option v-for="item in gradeArr" :key="item" :label="item" :value="item"></el-option>
         </el-select>
@@ -42,7 +42,7 @@
         },
         rules: {
           grade: [
-            { required: true, message: '班级不能为空', trigger: 'change' },
+            { required: true, message: '年级不能为空', trigger: 'change' },
           ],
           profession: [
             {required: true, message: '专业不能为空', trigger: 'change'},

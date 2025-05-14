@@ -20,7 +20,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="班级：" prop="grade" :label-width="formLabelWidth">
+          <el-form-item label="年级：" prop="grade" :label-width="formLabelWidth">
             <el-input v-model="form.grade" maxlength="15" clearable></el-input>
           </el-form-item>
         </el-col>
@@ -116,7 +116,7 @@
         }],
         rules: {
           grade: [
-            { required: true, message: '班级不能为空', trigger: 'blur' },
+            { required: true, message: '年级不能为空', trigger: 'blur' },
           ],
           realName: [
             {required: true, message: '姓名不能为空', trigger: 'blur'},
